@@ -14,7 +14,19 @@ function App() {
         </p>
 
         <div className="body">
-          <button onClick={() => setCount((count) => count + 1)}>
+          <button
+            onClick={async () => {
+              setCount((count) => count + 1);
+              const response = await fetch("http://localhost:3000/", {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              });
+              const data = await response.json();
+              console.log(data);
+            }}
+          >
             🪂 Click me : {count}
           </button>
 

@@ -3,7 +3,7 @@ import path from 'path';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
-
+import cors from 'cors';
 import BaseRouter from '@src/routes';
 
 import Paths from '@src/common/constants/Paths';
@@ -19,13 +19,12 @@ import { NodeEnvs } from '@src/common/constants';
 
 const app = express();
 
-
 // **** Middleware **** //
 
 // Basic middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+app.use(cors());
 // Show routes called in console during development
 if (ENV.NodeEnv === NodeEnvs.Dev) {
   app.use(morgan('dev'));
@@ -56,25 +55,19 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
 });
 
 
-// **** FrontEnd Content **** //
+// Default route
 
-// Set views directory (html)
-const viewsDir = path.join(__dirname, 'views');
-app.set('views', viewsDir);
-
-// Set static directory (js and css).
-const staticDir = path.join(__dirname, 'public');
-app.use(express.static(staticDir));
-
-// Nav to users pg by default
 app.get('/', (_: Request, res: Response) => {
-  return res.redirect('/users');
+  return res.json('BACKENDDDDDDDD');
 });
 
-// Redirect to login if not logged in.
-app.get('/users', (_: Request, res: Response) => {
-  return res.sendFile('users.html', { root: viewsDir });
-});
+
+
+
+// // Redirect to login if not logged in.
+// app.get('/users', (_: Request, res: Response) => {
+//   return res.sendFile('users.html', { root: viewsDir });
+// });
 
 
 /******************************************************************************
