@@ -3,7 +3,6 @@ import path from 'path';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
-import cors from 'cors';
 import BaseRouter from '@src/routes';
 
 import Paths from '@src/common/constants/Paths';
@@ -18,6 +17,8 @@ import { NodeEnvs } from '@src/common/constants';
 ******************************************************************************/
 
 const app = express();
+
+const cors = require('cors');
 
 // **** Middleware **** //
 
@@ -55,14 +56,10 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
 });
 
 
-// Default route
 
 app.get('/', (_: Request, res: Response) => {
-  return res.json('BACKENDDDDDDDD');
+  res.json("HIHIHIHI BACKEND HIHIHIHIHII");
 });
-
-
-
 
 // // Redirect to login if not logged in.
 // app.get('/users', (_: Request, res: Response) => {

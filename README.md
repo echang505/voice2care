@@ -16,7 +16,7 @@ how did I create frontend?
 // yarn create vite-react
 
 how did I create backend?
-// npx express-generator-typescript --use-yarn "backend"
+// npx express-generator-typescript "backend"
 
 
 
@@ -24,14 +24,14 @@ how did I create backend?
 1. Go to frontend directory
 > cd frontend
 2. Install packages
-> yarn install
-3. Run Dev Server
-> yarn dev
+> npm install
+3. Run Dev Server through Vite
+> npm run dev
 
 ### How to start backend
 1. Go to backend directory
 > cd backend
 2. Install packages
-> yarn install
-3. Start backend
-> yarn start
+> npm install
+3. Run Dev server through nodemon
+> npm run dev:hot
