@@ -1,0 +1,21 @@
+# Development image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies (including devDependencies)
+COPY package*.json ./
+RUN npm install
+
+# Install nodemon globally (optional, can be local too)
+RUN npm install -g nodemon
+
+# Copy all files (source + scripts + config)
+COPY . .
+
+# Expose backend dev port
+EXPOSE 8001
+
+# Default command: run dev server with hot reloading
+CMD ["npm", "run", "dev:hot"]

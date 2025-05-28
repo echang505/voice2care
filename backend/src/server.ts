@@ -1,9 +1,10 @@
 import morgan from 'morgan';
-import path from 'path';
+// import path from 'path';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
 import BaseRouter from '@src/routes';
+import cors from 'cors';
 
 import Paths from '@src/common/constants/Paths';
 import ENV from '@src/common/constants/ENV';
@@ -18,7 +19,6 @@ import { NodeEnvs } from '@src/common/constants';
 
 const app = express();
 
-const cors = require('cors');
 
 // **** Middleware **** //
 
@@ -58,7 +58,7 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
 
 
 app.get('/', (_: Request, res: Response) => {
-  res.json("HIHIHIHI BACKEND HIHIHIHIHII");
+  res.json('HIHIHIHI BACKEND HIHIHIHIHIasdasfawefagaI');
 });
 
 // // Redirect to login if not logged in.

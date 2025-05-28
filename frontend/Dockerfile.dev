@@ -1,0 +1,22 @@
+# Use lightweight Node base image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files and install all deps (incl. devDependencies)
+COPY package*.json ./
+
+RUN npm install
+
+# Install vite globally (optional, since it's in node_modules)
+RUN npm install -g vite
+
+# Copy the rest of the source code
+COPY . .
+
+# Expose Vite dev server port
+EXPOSE 8000
+
+# Run Vite dev server
+CMD ["npm", "run", "dev"]
