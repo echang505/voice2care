@@ -12,6 +12,10 @@
 ## Dev Dockerized Build
 Only need to run this one command for hot reload backend, frontend, and nginx reverse proxy
 > docker compose -f docker-compose.dev.yml up --build
+No cache:
+> docker compose -f docker-compose.dev.yml build --no-cache
+> docker compose -f docker-compose.dev.yml up
+
 
 ### Start individual components
 ##### How to start frontend hot reload
