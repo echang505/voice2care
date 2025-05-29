@@ -8,6 +8,9 @@ const ChatBubbles: React.FC = () => {
     stopListening,
     isListening,
     hasRecognitionSupport,
+    devices,
+    selectedDeviceId,
+    setSelectedDeviceId,
   } = useSpeechRecognition();
 
   if (!hasRecognitionSupport) {
@@ -15,7 +18,23 @@ const ChatBubbles: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
+      <label className="block text-sm font-medium text-gray-700">
+        Select Microphone:
+      </label>
+      <select
+        className="border p-2 rounded"
+        value={selectedDeviceId}
+        onChange={(e) => setSelectedDeviceId(e.target.value)}
+      >
+        <option value="">Default</option>
+        {devices.map((device) => (
+          <option key={device.deviceId} value={device.deviceId}>
+            {device.label || `Microphone (${device.deviceId.slice(0, 6)}...)`}
+          </option>
+        ))}
+      </select>
+      
       <div>
         <button onClick={startListening}>
           Start Recording
@@ -30,7 +49,7 @@ const ChatBubbles: React.FC = () => {
 
       {isListening && <div>Recording...</div>}
       {text && <p>{text}</p>}
-    </div>
+    </>
   );
 };
 
