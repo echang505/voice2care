@@ -4,6 +4,7 @@ const HomePage: React.FC = () => {
     return (
         <>
             <p>HomePage</p>
+            <p>test</p>
         </>
     );
 };
