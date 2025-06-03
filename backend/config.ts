@@ -16,6 +16,16 @@ if (result2.error) {
   throw result2.error;
 }
 
+// configure secret
+const SECRET_ENV = process.env.SECRET_ENV;
+if (SECRET_ENV) {
+  const result = dotenv.config({
+    path: path.join(__dirname, `./config/.env.${SECRET_ENV}`),
+  });
+  if (result.error) {
+    throw result.error;
+  }
+}
 // Configure moduleAlias
 if (__filename.endsWith('js')) {
   moduleAlias.addAlias('@src', __dirname + '/dist');

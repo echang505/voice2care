@@ -13,6 +13,8 @@ import { RouteError } from '@src/common/util/route-errors';
 import { NodeEnvs } from '@src/common/constants';
 import { prototype } from 'events';
 
+import SECRETENV from '@src/common/constants/SECRET';
+import { SecretEnvs } from '@src/common/constants';
 
 /******************************************************************************
                                 Setup
@@ -40,6 +42,7 @@ if (ENV.NodeEnv === NodeEnvs.Production) {
   }
 }
 
+
 // Add APIs, must be after middleware
 app.use(Paths.Base, BaseRouter);
 
@@ -59,7 +62,7 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
 
 
 app.get('/', (_: Request, res: Response) => {
-  res.json('HIHIHIHI BACKEND HIHIHIHIHIasdasfawefagaI');
+  res.json(SECRETENV.MongodbUri);
 });
 
 //mongoDB connection

@@ -4,8 +4,8 @@ const HomePage: React.FC = () => {
     return (
         <>
             <HomePageHero />
-            <section className="bg-white py-12">
-                <div className="max-w-5xl mx-auto px-4 pb-100 text-center">
+            <section className="bg-white py-12 min-h-screen">
+                <div className="max-w-5xl mx-auto px-4 text-center">
                     <h3 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-4">
                         Welcome to Voice2Care
                     </h3>

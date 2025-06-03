@@ -9,3 +9,7 @@ export enum NodeEnvs {
   Test = 'test',
   Production = 'production'
 }
+
+export enum SecretEnvs {
+  Secret = 'secret'
+}
