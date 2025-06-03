@@ -11,6 +11,7 @@ import ENV from '@src/common/constants/ENV';
 import HttpStatusCodes from '@src/common/constants/HttpStatusCodes';
 import { RouteError } from '@src/common/util/route-errors';
 import { NodeEnvs } from '@src/common/constants';
+import { prototype } from 'events';
 
 
 /******************************************************************************
@@ -60,6 +61,15 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
 app.get('/', (_: Request, res: Response) => {
   res.json('HIHIHIHI BACKEND HIHIHIHIHIasdasfawefagaI');
 });
+
+//mongoDB connection
+const mongoose = require('mongoose');
+const DB_URL = process.env.MONGO_URI;
+mongoose.connect(DB_URL).then(()=>{
+  console.log("Database connected :3")
+});
+
+
 
 // // Redirect to login if not logged in.
 // app.get('/users', (_: Request, res: Response) => {
