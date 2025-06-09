@@ -9,8 +9,10 @@ services:
       - "8001:8001"
     env_file:
       - ./backend/config/.env.production
+      - ./backend/config/.env.secret
     volumes:
       - ./backend/config/.env.production:/app/config/.env.production
+      - ./backend/config/.env.secret:/app/config/.env.secret
     restart: unless-stopped
 
   frontend:
