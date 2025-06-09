@@ -11,6 +11,7 @@ import { SecretEnvs } from '.';
 const SECRETENV = jetEnv({
   SecretEnv: isEnumVal(SecretEnvs),
   MongodbUri: str,
+  GeminiKey: str,
 });
 
 

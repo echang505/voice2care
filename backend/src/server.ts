@@ -13,6 +13,7 @@ import { RouteError } from '@src/common/util/route-errors';
 import { NodeEnvs } from '@src/common/constants';
 
 import SECRETENV from '@src/common/constants/SECRET';
+import { GoogleGenAI } from "@google/genai";
 
 /******************************************************************************
                                 Setup
@@ -63,14 +64,24 @@ app.get('/', (_: Request, res: Response) => {
   res.json(SECRETENV.MongodbUri);
 });
 
-//mongoDB connection
-import mongoose from 'mongoose';
-const DB_URL = SECRETENV.MongodbUri;
-mongoose.connect(DB_URL).then(()=>{
-  // eslint-disable-next-line no-console
-  console.log('Database connected :3');
-}); 
+// //mongoDB connection
+// import mongoose from 'mongoose';
+// const DB_URL = SECRETENV.MongodbUri;
+// mongoose.connect(DB_URL).then(()=>{
+//   // eslint-disable-next-line no-console
+//   console.log('Database connected :3');
+// }); 
 
+// test gemini prompt
+const ai = new GoogleGenAI({ apiKey: SECRETENV.GeminiKey });
+
+app.get('/gemini/test', async (_: Request, res: Response) => {
+  const response = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
+    contents: "Explain calculus in 1000 words.",
+  });
+  res.json(response.text);
+});
 
 
 // // Redirect to login if not logged in.

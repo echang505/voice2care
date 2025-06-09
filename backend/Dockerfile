@@ -1,5 +1,5 @@
 # Base image
-FROM node:18-alpine AS builder
+FROM node:22.14-alpine AS builder
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ RUN npm run type-check && npm run lint && npm run build
 # -------------------------------
 # Second stage: run built app
 # -------------------------------
-FROM node:18-alpine AS runner
+FROM node:22.14-alpine AS runner
 
 WORKDIR /app
 
