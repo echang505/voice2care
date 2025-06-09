@@ -11,10 +11,8 @@ import ENV from '@src/common/constants/ENV';
 import HttpStatusCodes from '@src/common/constants/HttpStatusCodes';
 import { RouteError } from '@src/common/util/route-errors';
 import { NodeEnvs } from '@src/common/constants';
-import { prototype } from 'events';
 
 import SECRETENV from '@src/common/constants/SECRET';
-import { SecretEnvs } from '@src/common/constants';
 
 /******************************************************************************
                                 Setup
@@ -66,11 +64,12 @@ app.get('/', (_: Request, res: Response) => {
 });
 
 //mongoDB connection
-const mongoose = require('mongoose');
-const DB_URL = process.env.MONGO_URI;
+import mongoose from 'mongoose';
+const DB_URL = SECRETENV.MongodbUri;
 mongoose.connect(DB_URL).then(()=>{
-  console.log("Database connected :3")
-});
+  // eslint-disable-next-line no-console
+  console.log('Database connected :3');
+}); 
 
 
 

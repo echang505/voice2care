@@ -1,4 +1,4 @@
-import jetEnv, { num, str } from 'jet-env';
+import jetEnv, { str } from 'jet-env';
 import { isEnumVal } from 'jet-validators';
 
 import { SecretEnvs } from '.';
