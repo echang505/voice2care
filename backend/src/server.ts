@@ -15,6 +15,9 @@ import { NodeEnvs } from '@src/common/constants';
 import SECRETENV from '@src/common/constants/SECRET';
 import { GoogleGenAI } from "@google/genai";
 
+// Websocket
+import { WebSocketServer, WebSocket } from 'ws';
+import http from 'http';
 /******************************************************************************
                                 Setup
 ******************************************************************************/
@@ -58,7 +61,20 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
   return next(err);
 });
 
-
+// websocket
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
+wss.on('connection', (ws: WebSocket) => {
+  console.log('hi');
+  ws.on('message', (message) => {
+    // process incoming data
+    const transcript = 'transcribed text from audio';
+    ws.send(JSON.stringify({ transcript })); // send back the transcript
+  });
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
 
 app.get('/', (_: Request, res: Response) => {
   res.json(SECRETENV.MongodbUri);
@@ -82,6 +98,7 @@ app.get('/gemini/test', async (_: Request, res: Response) => {
   });
   res.json(response.text);
 });
+
 
 
 // // Redirect to login if not logged in.
