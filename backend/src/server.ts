@@ -111,4 +111,4 @@ app.get('/gemini/test', async (_: Request, res: Response) => {
                                 Export default
 ******************************************************************************/
 
-export default app;
+export default server;

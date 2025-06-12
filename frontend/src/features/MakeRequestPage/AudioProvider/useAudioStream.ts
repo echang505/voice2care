@@ -29,12 +29,12 @@ export const useAudioStream = () => {
 
     const startStreaming = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: { deviceId: selectedDeviceId ? { exact: selectedDeviceId } : undefined }
-            });
+            // const stream = await navigator.mediaDevices.getUserMedia({
+            //     audio: { deviceId: selectedDeviceId ? { exact: selectedDeviceId } : undefined }
+            // });
 
-            const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
-            mediaRecorderRef.current = mediaRecorder;
+            // const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+            // mediaRecorderRef.current = mediaRecorder;
 
             const socket = new WebSocket('ws://' + window.location.host + '/api/');
             console.log('Connecting to WebSocket:', socket);
@@ -48,8 +48,9 @@ export const useAudioStream = () => {
                 //     }
                 // };
                 console.log('WebSocket is open:', socket.readyState === WebSocket.OPEN); // true
-
+                
                 if (socket.readyState === WebSocket.OPEN) {
+                    console.log("hi");
                     socket.send(JSON.stringify({ action: 'start' }));
                 }
             };
@@ -74,7 +75,7 @@ export const useAudioStream = () => {
     };
 
     const stopStreaming = () => {
-        mediaRecorderRef.current?.stop();
+        // mediaRecorderRef.current?.stop();
         socketRef.current?.close();
     };
 
