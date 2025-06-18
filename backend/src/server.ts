@@ -3,10 +3,10 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
-import BaseRouter from '@src/routes';
+// import BaseRouter from '@src/routes';
 import cors from 'cors';
 
-import Paths from '@src/common/constants/Paths';
+// import Paths from '@src/common/constants/Paths';
 import ENV from '@src/common/constants/ENV';
 import HttpStatusCodes from '@src/common/constants/HttpStatusCodes';
 import { RouteError } from '@src/common/util/route-errors';
@@ -45,8 +45,6 @@ if (ENV.NodeEnv === NodeEnvs.Production) {
 }
 
 
-// Add APIs, must be after middleware
-app.use(Paths.Base, BaseRouter);
 
 // Add error handler
 app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
@@ -61,22 +59,25 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
   return next(err);
 });
 
-// websocket
-const server = http.createServer(app);
-const wss = new WebSocketServer({ server });
-wss.on('connection', (ws: WebSocket) => {
-  console.log('hi');
-  ws.on('message', (message) => {
-    // process incoming data
-    const transcript = 'transcribed text from audio';
-    ws.send(JSON.stringify({ transcript })); // send back the transcript
-  });
-  ws.on('close', () => {
-    console.log('Client disconnected');
-  });
-});
+// // websocket NOT NEEDED
+// const server = http.createServer(app);
+// const wss = new WebSocketServer({ server });
+// wss.on('connection', (ws: WebSocket) => {
+//   console.log('hi');
+//   ws.on('message', (message) => {
+//     // process incoming data
+//     const transcript = message;
+//     ws.send( transcript ); 
+//   });
+//   ws.on('close', () => {
+//     console.log('Client disconnected');
+//   });
+// });
 
-app.get('/', (_: Request, res: Response) => {
+// Add APIs, must be after middleware
+// app.use(Paths.Base, BaseRouter);
+
+app.get('/api', (_: Request, res: Response) => {
   res.json(SECRETENV.MongodbUri);
 });
 
@@ -88,13 +89,17 @@ app.get('/', (_: Request, res: Response) => {
 //   console.log('Database connected :3');
 // }); 
 
+app.get('/api/getGeminiLiveKey', (_: Request, res: Response) => {
+  res.json(SECRETENV.GeminiKey);
+});
+
 // test gemini prompt
 const ai = new GoogleGenAI({ apiKey: SECRETENV.GeminiKey });
 
-app.get('/gemini/test', async (_: Request, res: Response) => {
+app.get('/api/gemini/test', async (_: Request, res: Response) => {
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
-    contents: "Explain calculus in 1000 words.",
+    contents: "Explain calculus in 20 words.",
   });
   res.json(response.text);
 });
@@ -111,4 +116,4 @@ app.get('/gemini/test', async (_: Request, res: Response) => {
                                 Export default
 ******************************************************************************/
 
-export default server;
+export default app;
